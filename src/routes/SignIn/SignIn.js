@@ -1,18 +1,24 @@
-import { signInWithGooglePopup } from "../../utils/Firebase/Firebase";
-import { createUserDocumentFromAuth } from "../../utils/Firebase/Firebase";
+import Button from "../../components/Button/Button";
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import {
+  signInWithGooglePopup, 
+  createUserDocumentFromAuth
+} from "../../utils/FirebaseUtils/FirebaseUtils";
+
 const SignIn = () => {
+
   const logGoogleUser = async () => {
-    // google provided obj contanis user
     const { user } = await signInWithGooglePopup(); 
-    const userDocRef = await createUserDocumentFromAuth(user)
+    await createUserDocumentFromAuth(user)
   }
 
   return (
     <div>
       <h1>Sign In Page</h1>
-      <button onClick={logGoogleUser}>
-        Sign in with Google
-      </button>
+      <Button onClick={logGoogleUser} buttonType="google">
+        Sign in with Google Popup
+      </Button>
+      <SignUpForm />
     </div>
   );
 };
