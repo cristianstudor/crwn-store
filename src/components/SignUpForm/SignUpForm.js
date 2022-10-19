@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button";
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -27,7 +28,7 @@ const SignUpForm = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("passwords do not match");
+      alert("Passwords do not match");
       return;
     }
 
@@ -36,6 +37,7 @@ const SignUpForm = () => {
         email,
         password
       );
+      
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
