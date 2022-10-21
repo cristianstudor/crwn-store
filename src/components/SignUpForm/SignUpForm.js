@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from "../../utils/FirebaseUtils/FirebaseUtils";
+} from "../../utils/FirebaseUtils";
 
 import "./SignUpForm.scss";
 

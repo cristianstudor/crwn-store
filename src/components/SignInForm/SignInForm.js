@@ -5,7 +5,7 @@ import FormInput from "../FormInput/FormInput";
 import {
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
-} from "../../utils/FirebaseUtils/FirebaseUtils";
+} from "../../utils/FirebaseUtils";
 
 import "./SignInForm.scss";
 
