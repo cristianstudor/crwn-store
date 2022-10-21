@@ -1,12 +1,13 @@
 import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-import CartIcon from "../../components/CartIcon/CartIcon";
-import CartDropdown from "../../components/CartDropdown/CartDropdown";
 
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../contexts/UserContext";
 import { CartContext } from "../../contexts/CartContext";
 import { signOutUser } from "../../utils/FirebaseUtils";
+
+import CartIcon from "../../components/CartIcon/CartIcon";
+import CartDropdown from "../../components/CartDropdown/CartDropdown";
 
 import "./Navigation.scss";
 

@@ -1,17 +1,18 @@
 import { useState } from "react";
-import Button from "../../components/Button/Button";
-import FormInput from "../FormInput/FormInput";
 
 import {
   signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword
 } from "../../utils/FirebaseUtils";
+
+import Button from "../../components/Button/Button";
+import FormInput from "../FormInput/FormInput";
 
 import "./SignInForm.scss";
 
 const defaultFormFields = {
   email: "",
-  password: "",
+  password: ""
 };
 
 const SignInForm = () => {
