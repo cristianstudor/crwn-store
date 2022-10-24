@@ -15,7 +15,6 @@ import {
   NavLinksContainer,
   NavLink
 } from "./NavigationStyles";
-//import "./Navigation.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
