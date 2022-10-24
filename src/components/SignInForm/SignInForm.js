@@ -5,8 +5,8 @@ import {
   signInAuthUserWithEmailAndPassword
 } from "../../utils/FirebaseUtils";
 
-import Button from "../../components/Button/Button";
 import FormInput from "../FormInput/FormInput";
+import Button from "../../components/Button/Button";
 
 import "./SignInForm.scss";
 
