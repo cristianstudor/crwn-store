@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "./DirectoryItem.scss";
 
 const DirectoryItem = (props) => {
-  const { title, imageUrl } = props.category;
+  const { title, imageUrl, route } = props.category;
+  const navigate = useNavigate();
+
+  const goToCategoryHandler = () => navigate(route);
 
   return (
-    <Link className="directory-item-container" to={`shop/${title}`}>
+    <div className="directory-item-container" onClick={goToCategoryHandler}>
       <div
         className="background-image"
         style={{
@@ -17,7 +20,7 @@ const DirectoryItem = (props) => {
         <h2>{title}</h2>
         <p>Shop Now</p>
       </div>
-    </Link>
+    </div>
   );
 };
 
