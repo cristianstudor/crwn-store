@@ -1,12 +1,35 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
-import Navigation from "./routes/Navigation/Navigation.js";
-import Home from "./routes/Home/Home.js";
-import Shop from "./routes/Shop/Shop.js";
-import Authentication from "./routes/Authentication/Authentication.js";
-import Checkout from "./routes/Checkout/Checkout.js";
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth
+} from "./utils/firebase.utils";
+
+import { setCurrentUser } from "./store/user/user.actions";
+
+import Navigation from "./routes/Navigation/Navigation";
+import Home from "./routes/Home/Home";
+import Shop from "./routes/Shop/Shop";
+import Authentication from "./routes/Authentication/Authentication";
+import Checkout from "./routes/Checkout/Checkout";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+    // eslint-disable-next-line
+  }, []); // wrong dispatch dependency error, dispatch never changes
+
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
