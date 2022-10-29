@@ -6,6 +6,7 @@ import {
 } from "../../store/cart/cart.selectors";
 
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
+import PaymentForm from "../../components/PaymentForm/PaymentForm";
 
 import "./Checkout.scss";
 
@@ -36,6 +37,7 @@ const Checkout = () => {
         <CheckoutItem key={item.id} cartItem={item} />
       ))}
       <span className="total">Total: ${cartTotal}</span>
+      <PaymentForm />
     </div>
   );
 };
