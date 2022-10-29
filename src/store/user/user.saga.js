@@ -73,7 +73,6 @@ export function* signUp({ payload: { email, password, displayName } }) {
       email,
       password
     );
-    console.log(user);
     yield put(signUpSuccess(user, { displayName }));
   } catch (error) {
     if (error.code === "auth/email-already-in-use") {
