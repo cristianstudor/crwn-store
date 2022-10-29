@@ -2,12 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth
-} from "./utils/firebase.utils";
-
-import { setCurrentUser } from "./store/user/user.actions";
+import { checkUserSession } from "./store/user/user.actions";
 
 import Navigation from "./routes/Navigation/Navigation";
 import Home from "./routes/Home/Home";
@@ -19,14 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
+    dispatch(checkUserSession());
     // eslint-disable-next-line
   }, []); // wrong dispatch dependency error, dispatch never changes
 
