@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   selectCartItems,
@@ -6,13 +7,17 @@ import {
 } from "../../store/cart/cart.selectors";
 
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
-import PaymentForm from "../../components/PaymentForm/PaymentForm";
+import Button from "../../components/Button/Button";
 
 import "./Checkout.scss";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+
+  const navigate = useNavigate();
+
+  const goToPaymentHandler = () => navigate("/payment");
 
   return (
     <div className="checkout-container">
@@ -37,7 +42,9 @@ const Checkout = () => {
         <CheckoutItem key={item.id} cartItem={item} />
       ))}
       <span className="total">Total: ${cartTotal}</span>
-      <PaymentForm />
+      {cartTotal > 0 && (
+        <Button onClick={goToPaymentHandler}>Go to payment</Button>
+      )}
     </div>
   );
 };

@@ -44,3 +44,12 @@ export const signOutFailed = (error) => ({
   type: USER_ACTION_TYPES.SIGN_OUT_FAILED,
   payload: error
 });
+
+export const updateUserData = (currentUser, updatedInfo) => ({
+  type: USER_ACTION_TYPES.UPDATE_USER_DATA,
+  payload: { currentUser, updatedInfo }
+});
+export const updateUserOrdersHistory = (currentUser, updatedHistory) => ({
+  type: USER_ACTION_TYPES.UPDATE_USER_ORDERS_HISTORY,
+  payload: { currentUser, updatedHistory }
+});

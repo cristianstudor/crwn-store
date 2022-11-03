@@ -1,0 +1,35 @@
+.orders-history-container {
+  width: 60%;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+
+  h2 {
+    align-self:flex-start;
+  }
+
+  .orders-history-header {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+
+    .header-block {
+      text-transform: capitalize;
+      width: 28%;
+       
+      &:first-child,
+      &:last-child {
+        width: 8%;
+      }
+    }
+  }
+  
+  .no-orders {
+    padding-top: 25px;
+    font-size: xx-large;
+  }
+}

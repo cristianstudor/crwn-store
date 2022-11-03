@@ -17,7 +17,8 @@ import {
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
-  signOutUser
+  signOutUser,
+  updateUserDocument
 } from "../../utils/firebase.utils";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
@@ -96,6 +97,30 @@ export function* signOut() {
   }
 }
 
+export function* updateUser({ payload: { currentUser, updatedInfo } }) {
+  try {
+    yield call(updateUserDocument, currentUser, updatedInfo);
+    alert("Update user data successful");
+    const userAuth = { uid: currentUser.id };
+    yield call(getSnapshotFromUserAuth, userAuth);
+  } catch (error) {
+    alert("Update user data unsuccessful");
+    console.log(error.message);
+  }
+}
+
+export function* updateUserHistory({
+  payload: { currentUser, updatedHistory }
+}) {
+  try {
+    yield call(updateUserDocument, currentUser, updatedHistory);
+    const userAuth = { uid: currentUser.id };
+    yield call(getSnapshotFromUserAuth, userAuth);
+  } catch (error) {
+    console.log("error adding order history", error.message);
+  }
+}
+
 export function* onCheckUserSession() {
   yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
 }
@@ -120,6 +145,17 @@ export function* onSignOutStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
 }
 
+export function* onUpdateUserData() {
+  yield takeLatest(USER_ACTION_TYPES.UPDATE_USER_DATA, updateUser);
+}
+
+export function* onUpdateUserHistory() {
+  yield takeLatest(
+    USER_ACTION_TYPES.UPDATE_USER_ORDERS_HISTORY,
+    updateUserHistory
+  );
+}
+
 export function* userSagas() {
   yield all([
     call(onCheckUserSession),
@@ -127,6 +163,8 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onSignUpStart),
     call(onSignUpSuccess),
-    call(onSignOutStart)
+    call(onSignOutStart),
+    call(onUpdateUserData),
+    call(onUpdateUserHistory)
   ]);
 }

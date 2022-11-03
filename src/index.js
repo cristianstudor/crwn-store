@@ -7,7 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import reportWebVitals from "./reportWebVitals";
 
 import { store, persistor } from "./store/store";
-import { stripePromise } from "./utils/stripe/stripe.utils";
+import { stripePromise } from "./utils/stripe.utils";
 
 import App from "./App";
 

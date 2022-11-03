@@ -37,8 +37,8 @@ googleProvider.setCustomParameters({
   prompt: "select_account"
 });
 
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = async () =>
+  await signInWithPopup(auth, googleProvider);
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
@@ -80,13 +80,19 @@ export const createUserDocumentFromAuth = async (
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
+    const createdAt = new Date();
 
     try {
-      const createdAt = new Date();
       const userData = {
         displayName: displayName,
         email: email,
         createdAt: createdAt,
+        userAddress: {
+          country: "",
+          city: "",
+          address: ""
+        },
+        ordersHistory: [],
         ...additionalInfo
       };
       await setDoc(userDocRef, userData);
@@ -95,13 +101,26 @@ export const createUserDocumentFromAuth = async (
       return newUserSnapshot;
     } catch (error) {
       console.log("error creating the user", error.message);
+      throw Error(error);
     }
   }
 
   return userSnapshot;
 };
 
-export const addCollectionAndDocumentFromAuth = async (
+export const updateUserDocument = async (currentUser, updatedInfo) => {
+  if (!currentUser) return;
+  const userDocRef = doc(db, "users", currentUser.id);
+  const userSnapshot = await getDoc(userDocRef);
+
+  const userData = {
+    ...userSnapshot.data(),
+    ...updatedInfo
+  };
+  await setDoc(userDocRef, userData);
+};
+
+export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
 ) => {
@@ -114,11 +133,11 @@ export const addCollectionAndDocumentFromAuth = async (
   });
 
   await batch.commit();
-  console.log("done");
+  console.log("added collection to database");
 };
 
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
+export const getCollectionAndDocuments = async (collectionKey) => {
+  const collectionRef = collection(db, collectionKey);
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);

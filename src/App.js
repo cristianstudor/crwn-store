@@ -9,6 +9,8 @@ import Home from "./routes/Home/Home";
 import Shop from "./routes/Shop/Shop";
 import Authentication from "./routes/Authentication/Authentication";
 import Checkout from "./routes/Checkout/Checkout";
+import Payment from "./routes/Payment/Payment";
+import Profile from "./routes/Profile/Profile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="shop/*" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
   );

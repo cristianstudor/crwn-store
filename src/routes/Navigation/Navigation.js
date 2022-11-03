@@ -32,9 +32,14 @@ const Navigation = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
-              SIGN OUT
-            </span>
+            <Fragment>
+              <Link className="nav-link" to="profile">
+                PROFILE
+              </Link>
+              <span className="nav-link" onClick={signOutUser}>
+                SIGN OUT
+              </span>
+            </Fragment>
           ) : (
             <Link className="nav-link" to="auth">
               SIGN IN
