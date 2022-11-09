@@ -15,9 +15,12 @@ export function withMatcher<
 
 export function withMatcher(actionCreator: Function) {
   const type = actionCreator().type;
+  // adding property 'type' and method 'match' to the actionCreator function
   return Object.assign(actionCreator, {
     type,
     match: function (action: AnyAction) {
+      // if true narrows the type from AnyAction to the return type of
+      // the actionCreator, the return type being an action object type
       return action.type === type;
     }
   });
@@ -45,7 +48,3 @@ export function createAction<T extends string>(
 export function createAction<T extends string, P>(type: T, payload: P) {
   return { type, payload };
 }
-
-// export const createActionObject = (type, payload) => {
-//   return {type, payload};
-// };
