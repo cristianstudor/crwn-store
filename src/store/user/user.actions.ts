@@ -1,6 +1,8 @@
+import { User } from "firebase/auth";
+
 import { USER_ACTION_TYPES } from "./user.types";
 import {
-  CurrentUser,
+  UserData,
   AdditionalInfo,
   UpdatedUserInfo,
   UpdatedOrdersHistory
@@ -12,11 +14,9 @@ import {
   withMatcher
 } from "../../utils/reducer.utils";
 
+export type CurrentUser = { id: string } & UserData;
+
 export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
-// export type SetCurrentUser =ActionWithPayload<
-//   USER_ACTION_TYPES.SET_CURRENT_USER,
-//   CurrentUser
-// >;
 
 export type GoogleSignInStart = Action<USER_ACTION_TYPES.GOOGLE_SIGN_IN_START>;
 export type EmailSignInStart = ActionWithPayload<
@@ -38,7 +38,7 @@ export type SignUpStart = ActionWithPayload<
 >;
 export type SignUpSuccess = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_SUCCESS,
-  { user: string; additionalInfo: AdditionalInfo }
+  { user: User; additionalInfo: AdditionalInfo }
 >;
 export type SignUpFailed = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_FAILED,
@@ -54,20 +54,16 @@ export type SignOutFailed = ActionWithPayload<
 
 export type UpdateUserData = ActionWithPayload<
   USER_ACTION_TYPES.UPDATE_USER_DATA,
-  { currentUser: CurrentUser; updatedInfo: UpdatedUserInfo }
+  { updatedInfo: UpdatedUserInfo }
 >;
 export type UpdateUserOrdersHistory = ActionWithPayload<
   USER_ACTION_TYPES.UPDATE_USER_ORDERS_HISTORY,
-  { currentUser: CurrentUser; updatedHistory: UpdatedOrdersHistory }
+  { updatedHistory: UpdatedOrdersHistory }
 >;
 
 export const checkUserSession = withMatcher(
   (): CheckUserSession => createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
 );
-// export const setCurrentUser = withMatcher(
-//   (currentUser: CurrentUser): SetCurrentUser =>
-//     createAction(USER_ACTION_TYPES.CHECK_USER_SESSION, currentUser)
-// );
 
 export const googleSignInStart = withMatcher(
   (): GoogleSignInStart => createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START)
@@ -94,7 +90,7 @@ export const signUpStart = withMatcher(
     })
 );
 export const signUpSuccess = withMatcher(
-  (user: string, additionalInfo: AdditionalInfo): SignUpSuccess =>
+  (user: User, additionalInfo: AdditionalInfo): SignUpSuccess =>
     createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalInfo })
 );
 export const signUpFailed = withMatcher(
@@ -114,19 +110,24 @@ export const signOutFailed = withMatcher(
 );
 
 export const updateUserData = withMatcher(
-  (currentUser: CurrentUser, updatedInfo: UpdatedUserInfo): UpdateUserData =>
+  (updatedInfo: UpdatedUserInfo): UpdateUserData =>
     createAction(USER_ACTION_TYPES.UPDATE_USER_DATA, {
-      currentUser,
       updatedInfo
     })
 );
 export const updateUserOrdersHistory = withMatcher(
-  (
-    currentUser: CurrentUser,
-    updatedHistory: UpdatedOrdersHistory
-  ): UpdateUserOrdersHistory =>
+  (updatedHistory: UpdatedOrdersHistory): UpdateUserOrdersHistory =>
     createAction(USER_ACTION_TYPES.UPDATE_USER_ORDERS_HISTORY, {
-      currentUser,
       updatedHistory
     })
 );
+
+// export type SetCurrentUser =ActionWithPayload<
+//   USER_ACTION_TYPES.SET_CURRENT_USER,
+//   CurrentUser
+// >;
+
+// export const setCurrentUser = withMatcher(
+//   (currentUser: CurrentUser): SetCurrentUser =>
+//     createAction(USER_ACTION_TYPES.CHECK_USER_SESSION, currentUser)
+// );

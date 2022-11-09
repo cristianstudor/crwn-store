@@ -108,7 +108,7 @@ const Payment = () => {
     if (paymentResult.error) {
       if (currentUser) {
         ordersHistory.push({ ...newOrder, completed: false });
-        dispatch(updateUserOrdersHistory(currentUser, { ordersHistory }));
+        dispatch(updateUserOrdersHistory({ ordersHistory }));
       }
       alert(paymentResult.error.message);
     }
@@ -116,7 +116,7 @@ const Payment = () => {
     if (paymentResult.paymentIntent.status === "succeeded") {
       if (currentUser) {
         ordersHistory.push({ ...newOrder, completed: true });
-        dispatch(updateUserOrdersHistory(currentUser, { ordersHistory }));
+        dispatch(updateUserOrdersHistory({ ordersHistory }));
       }
       alert("Payment Successful");
       dispatch(clearCart());

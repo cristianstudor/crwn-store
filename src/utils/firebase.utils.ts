@@ -108,7 +108,7 @@ export const createUserDocumentFromAuth = async (
   additionalInfo = {} as AdditionalInfo
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
-  const userDocRef = doc(db, "users", userAuth.uid); // doc id = userAuth.uid
+  const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -140,7 +140,6 @@ export const createUserDocumentFromAuth = async (
   return userSnapshot as QueryDocumentSnapshot<UserData>;
 };
 
-export type CurrentUser = { id: string } & UserData;
 export type UpdatedUserInfo = {
   displayName: string;
   email: string;
@@ -152,11 +151,10 @@ export type UpdatedOrdersHistory = {
 export type UpdatedInfo = UpdatedUserInfo | UpdatedOrdersHistory;
 
 export const updateUserDocument = async (
-  currentUser: CurrentUser,
+  userAuth: User,
   updatedInfo: UpdatedInfo
 ) => {
-  if (!currentUser) return;
-  const userDocRef = doc(db, "users", currentUser.id);
+  const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   const userData = {

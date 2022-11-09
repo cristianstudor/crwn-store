@@ -47,7 +47,7 @@ const Address = () => {
       email: email,
       userAddress: { country, city, address }
     };
-    dispatch(updateUserData(currentUser, updatedInfo));
+    dispatch(updateUserData(updatedInfo));
   };
 
   return (
