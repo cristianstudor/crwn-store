@@ -1,10 +1,16 @@
 import { Fragment, useState } from "react";
+import { Order } from "../../utils/firebase.utils";
 
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 import "./OrderRow.scss";
 
-const OrderRow = ({ order, nr }) => {
+type OrderRowProps = {
+  order: Order;
+  nr: number;
+};
+
+const OrderRow = ({ order, nr }: OrderRowProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { orderItems, completed, date, total } = order;
 

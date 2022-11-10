@@ -1,6 +1,10 @@
+import { TypeCartItem } from "../../store/cart/cart.types";
+
 import "./OrderDetails.scss";
 
-const OrderDetails = ({ orderItems }) => {
+type OrderDetailsProps = { orderItems: TypeCartItem[] };
+
+const OrderDetails = ({ orderItems }: OrderDetailsProps) => {
   return (
     <div className="order-details-container">
       <div className="order-details-head">

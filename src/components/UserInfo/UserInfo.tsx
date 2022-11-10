@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selectors";
@@ -34,13 +34,15 @@ const Address = () => {
     }
   }, [currentUser]);
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const submitUpdatedInfo = (e) => {
-    e.preventDefault();
+  const submitUpdatedInfo = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const updatedInfo = {
       displayName: name,
@@ -65,7 +67,6 @@ const Address = () => {
         <h2>Address</h2>
         <FormInputSelectCountries
           label="country"
-          type="text"
           onChange={handleChange}
           name="country"
           value={country}

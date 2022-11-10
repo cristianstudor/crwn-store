@@ -1,6 +1,13 @@
-import DirectoryItem from "../../components/DirectoryItem/DirectoryItem.js";
+import DirectoryItem from "../../components/DirectoryItem/DirectoryItem";
 
 import "./Directory.scss";
+
+export type CategoryDirectory = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  route: string;
+};
 
 const Directory = () => {
   const categories = [

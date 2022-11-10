@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from "typed-redux-saga/macro";
-import { User } from "firebase/auth";
+import { User, AuthError, AuthErrorCodes } from "firebase/auth";
 
 import { USER_ACTION_TYPES } from "./user.types";
 
@@ -81,7 +81,13 @@ export function* signInWithEmail({
       yield* call(getSnapshotFromUserAuth, user);
     }
   } catch (error) {
-    console.error("Email or password wrong");
+    if (
+      (error as AuthError).code === AuthErrorCodes.USER_DELETED ||
+      AuthErrorCodes.INVALID_PASSWORD
+    ) {
+      alert("Email or password wrong!");
+    }
+    console.error("email or password wrong");
     yield* put(signInFailed(error as Error));
   }
 }
@@ -100,9 +106,9 @@ export function* signUp({
       yield* put(signUpSuccess(user, { displayName }));
     }
   } catch (error) {
-    // if (error.code === "auth/email-already-in-use") {
-    //   alert("Cannot create user, email already in use");
-    // }
+    if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+      alert("Cannot create user, email already in use!");
+    }
     console.error("user creation encountered an error", error);
     yield* put(signUpFailed(error as Error));
   }
@@ -128,12 +134,12 @@ export function* updateUser({ payload: { updatedInfo } }: UpdateUserData) {
     const userAuth = yield* call(getCurrentUser);
     if (userAuth) {
       yield* call(updateUserDocument, userAuth, updatedInfo);
-      alert("Update user data successful");
+      alert("Update user data successful!");
       yield* call(getSnapshotFromUserAuth, userAuth);
     }
   } catch (error) {
-    alert("Update user data unsuccessful");
-    console.log(error);
+    alert("Update user data unsuccessful!");
+    console.error("error updating the user data", error);
   }
 }
 
@@ -147,7 +153,7 @@ export function* updateUserHistory({
       yield* call(getSnapshotFromUserAuth, userAuth);
     }
   } catch (error) {
-    console.log("error adding order history", error);
+    console.error("error adding order to the user data", error);
   }
 }
 

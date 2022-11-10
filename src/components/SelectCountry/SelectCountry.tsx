@@ -1,4 +1,10 @@
-const SelectCountry = (props) => {
+import { SelectHTMLAttributes } from "react";
+
+type SelectCountryProps = {
+  className: string;
+} & SelectHTMLAttributes<HTMLSelectElement>;
+
+const SelectCountry = (props: SelectCountryProps) => {
   return (
     <select {...props}>
       <option value=""></option>

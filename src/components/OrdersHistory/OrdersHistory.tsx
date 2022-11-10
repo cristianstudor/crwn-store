@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selectors";
+import { Order } from "../../utils/firebase.utils";
 
 import OrderRow from "../OrderRow/OrderRow";
 
@@ -9,13 +10,13 @@ import "./OrdersHistory.scss";
 
 const OrdersHistory = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const [ordersHistory, setOrdersHistory] = useState([]);
+  const [ordersHistory, setOrdersHistory] = useState([] as Order[]);
 
   useEffect(() => {
     if (currentUser) {
       setOrdersHistory(currentUser.ordersHistory);
     } else {
-      setOrdersHistory([]);
+      setOrdersHistory([] as Order[]);
     }
   }, [currentUser]);
 
@@ -45,7 +46,7 @@ const OrdersHistory = () => {
         ordersHistory.reduce((acc, order, index) => {
           acc.unshift(<OrderRow key={index} order={order} nr={index + 1} />);
           return acc;
-        }, [])
+        }, [] as JSX.Element[])
       )}
     </div>
   );

@@ -45,7 +45,7 @@ const Navigation = () => {
               SIGN IN
             </Link>
           )}
-          <Link>
+          <Link to="">
             <CartIcon />
           </Link>
         </div>

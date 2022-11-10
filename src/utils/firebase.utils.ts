@@ -19,10 +19,11 @@ import {
   writeBatch,
   query,
   getDocs,
+  Timestamp,
   QueryDocumentSnapshot
 } from "firebase/firestore";
 import { Category } from "../store/categories/categories.types";
-import { CartItem } from "../store/cart/cart.types";
+import { TypeCartItem } from "../store/cart/cart.types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsFdK7Vwt-uI369UGXNTleIAdrLxGUWX8",
@@ -88,9 +89,9 @@ export type UserAddress = {
 };
 export type Order = {
   completed: boolean;
-  date: Date;
+  date: Timestamp;
   total: number;
-  orderItems: CartItem[];
+  orderItems: TypeCartItem[];
 };
 export type UserData = {
   displayName: string;

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { StripeCardElement } from "@stripe/stripe-js";
 
 import {
   selectCartItems,
@@ -10,6 +11,8 @@ import {
 import { selectCurrentUser } from "../../store/user/user.selectors";
 import { clearCart } from "../../store/cart/cart.actions";
 import { updateUserOrdersHistory } from "../../store/user/user.actions";
+import { Order } from "../../utils/firebase.utils";
+import { Timestamp } from "firebase/firestore";
 
 import FormInput, {
   FormInputSelectCountries
@@ -24,6 +27,10 @@ const defaultFormFields = {
   country: "",
   address: ""
 };
+
+const ifValidCardElement = (
+  card: StripeCardElement | null
+): card is StripeCardElement => card !== null;
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -42,7 +49,7 @@ const Payment = () => {
   useEffect(() => {
     if (!amount) navigate("/checkout");
     // eslint-disable-next-line
-  }, [amount]);
+  }, [amount]); // navigate doesn't change
 
   useEffect(() => {
     if (currentUser) {
@@ -55,30 +62,38 @@ const Payment = () => {
     }
   }, [currentUser]);
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const paymentHandler = async (e) => {
-    e.preventDefault();
+  const paymentHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (!stripe || !elements) {
       return;
     }
 
+    // start processing payment
     setIsProcessingPayment(true);
 
-    const ordersHistory = currentUser ? currentUser.ordersHistory : {};
-    const newOrder = currentUser
+    // generating new order
+    const ordersHistory = currentUser
+      ? currentUser.ordersHistory
+      : ([] as Order[]);
+
+    const newOrder: Order = currentUser
       ? {
-          date: new Date(),
+          date: Timestamp.fromDate(new Date()),
           total: amount,
           orderItems: cartItems,
-          completed: null
+          completed: false
         }
-      : {};
+      : ({} as Order);
 
+    // getting payment intent result from stripe
     const response = await fetch("/.netlify/functions/create-payment-intent", {
       method: "post",
       headers: {
@@ -89,9 +104,14 @@ const Payment = () => {
 
     const { client_secret } = response.paymentIntent;
 
-    const paymentResult = await stripe.confirmCardPayment(client_secret, {
+    const cardDetails = elements.getElement(CardElement);
+
+    if (!ifValidCardElement(cardDetails)) return;
+
+    // making card payment confirmation
+    const paymentIntentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
-        card: elements.getElement(CardElement),
+        card: cardDetails,
         billing_details: {
           name: billing_name ? billing_name : "Guest",
           address: {
@@ -103,17 +123,21 @@ const Payment = () => {
       }
     });
 
+    // end processing payment
     setIsProcessingPayment(false);
 
-    if (paymentResult.error) {
+    if (paymentIntentResult.error) {
       if (currentUser) {
         ordersHistory.push({ ...newOrder, completed: false });
         dispatch(updateUserOrdersHistory({ ordersHistory }));
       }
-      alert(paymentResult.error.message);
+      alert(paymentIntentResult.error.message);
     }
 
-    if (paymentResult.paymentIntent.status === "succeeded") {
+    if (
+      paymentIntentResult.paymentIntent &&
+      paymentIntentResult.paymentIntent.status === "succeeded"
+    ) {
       if (currentUser) {
         ordersHistory.push({ ...newOrder, completed: true });
         dispatch(updateUserOrdersHistory({ ordersHistory }));
@@ -138,7 +162,6 @@ const Payment = () => {
         />
         <FormInputSelectCountries
           label="country"
-          type="text"
           onChange={handleChange}
           name="country"
           value={country}
@@ -161,7 +184,7 @@ const Payment = () => {
         <CardElement />
         <br />
         <Button
-          disabled={amount === 0 && "disabled"}
+          disabled={amount === 0 || isProcessingPayment === true}
           isLoading={isProcessingPayment}
           buttonType={BUTTON_TYPES_CLASSES.inverted}
         >

@@ -1,6 +1,10 @@
 import "./CartItem.scss";
 
-const CartItem = ({ cartItem }) => {
+import { TypeCartItem } from "../../store/cart/cart.types";
+
+type CartItemProps = { cartItem: TypeCartItem };
+
+const CartItem = ({ cartItem }: CartItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
   return (
