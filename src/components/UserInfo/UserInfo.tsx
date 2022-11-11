@@ -11,7 +11,7 @@ import "./UserInfo.scss";
 
 const defaultFormFields = {
   name: "",
-  email: "email",
+  email: "",
   city: "",
   country: "",
   address: ""
@@ -46,7 +46,6 @@ const Address = () => {
 
     const updatedInfo = {
       displayName: name,
-      email: email,
       userAddress: { country, city, address }
     };
     dispatch(updateUserData(updatedInfo));

@@ -143,7 +143,6 @@ export const createUserDocumentFromAuth = async (
 
 export type UpdatedUserInfo = {
   displayName: string;
-  email: string;
   userAddress: UserAddress;
 };
 export type UpdatedOrdersHistory = {

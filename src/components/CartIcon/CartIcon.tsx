@@ -1,4 +1,3 @@
-/// <reference types="react-scripts" />
 import { useSelector, useDispatch } from "react-redux";
 
 import {
