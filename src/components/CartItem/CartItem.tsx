@@ -1,10 +1,12 @@
+import { memo } from "react";
+
 import "./CartItem.scss";
 
 import { TypeCartItem } from "../../store/cart/cart.types";
 
 type CartItemProps = { cartItem: TypeCartItem };
 
-const CartItem = ({ cartItem }: CartItemProps) => {
+const CartItem = memo(({ cartItem }: CartItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
   return (
@@ -18,6 +20,6 @@ const CartItem = ({ cartItem }: CartItemProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default CartItem;

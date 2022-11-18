@@ -1,16 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
 import { checkUserSession } from "./store/user/user.actions";
 
+import Spinner from "./components/Spinner/Spinner";
 import Navigation from "./routes/Navigation/Navigation";
-import Home from "./routes/Home/Home";
-import Shop from "./routes/Shop/Shop";
-import Authentication from "./routes/Authentication/Authentication";
-import Checkout from "./routes/Checkout/Checkout";
-import Payment from "./routes/Payment/Payment";
-import Profile from "./routes/Profile/Profile";
+
+const Home = lazy(() => import("./routes/Home/Home"));
+const Shop = lazy(() => import("./routes/Shop/Shop"));
+const Authentication = lazy(() =>
+  import("./routes/Authentication/Authentication")
+);
+const Checkout = lazy(() => import("./routes/Checkout/Checkout"));
+const Payment = lazy(() => import("./routes/Payment/Payment"));
+const Profile = lazy(() => import("./routes/Profile/Profile"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,16 +25,18 @@ const App = () => {
   }, []); // wrong dispatch dependency error, dispatch never changes
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index={true} element={<Home />} />
-        <Route path="shop/*" element={<Shop />} />
-        <Route path="auth" element={<Authentication />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="payment" element={<Payment />} />
-        <Route path="profile" element={<Profile />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<Spinner />}>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route index={true} element={<Home />} />
+          <Route path="shop/*" element={<Shop />} />
+          <Route path="auth" element={<Authentication />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 
