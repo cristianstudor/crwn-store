@@ -1,8 +1,8 @@
-import { TypeCartItem } from "../../store/cart/cart.types";
+import { CartItemType } from "../../store/cart/cart.types";
 
 import "./OrderDetails.scss";
 
-type OrderDetailsProps = { orderItems: TypeCartItem[] };
+type OrderDetailsProps = { orderItems: CartItemType[] };
 
 const OrderDetails = ({ orderItems }: OrderDetailsProps) => {
   return (

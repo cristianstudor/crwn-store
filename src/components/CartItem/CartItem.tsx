@@ -2,9 +2,9 @@ import { memo } from "react";
 
 import "./CartItem.scss";
 
-import { TypeCartItem } from "../../store/cart/cart.types";
+import { CartItemType } from "../../store/cart/cart.types";
 
-type CartItemProps = { cartItem: TypeCartItem };
+type CartItemProps = { cartItem: CartItemType };
 
 const CartItem = memo(({ cartItem }: CartItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectCartItems } from "../../store/cart/cart.selectors";
-import { TypeCartItem } from "../../store/cart/cart.types";
+import { CartItemType } from "../../store/cart/cart.types";
 
 import {
   addItemToCart,
@@ -11,7 +11,7 @@ import {
 
 import "./CheckoutItem.scss";
 
-type CheckoutItemProps = { cartItem: TypeCartItem };
+type CheckoutItemProps = { cartItem: CartItemType };
 
 const CheckoutItem = ({ cartItem }: CheckoutItemProps) => {
   const { imageUrl, name, quantity, price } = cartItem;
