@@ -31,10 +31,15 @@
       }
 
       @media screen and (max-width: 800px) {     
+        &:nth-child(2) {
+          width: 40%;
+        }
+        &:nth-child(3) {
+          width: 16%;
+        }
         &:nth-child(4) {
           width: 24%;
         }
-
         &:last-child {
           width: 12%;
         }

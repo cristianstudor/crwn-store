@@ -59,11 +59,12 @@
     margin-bottom: 15px;
 
     .name {
-      width: 90%;
+      align-items: flex-start;
+      
     }
 
     .price {
-      width: 10%;
+      align-items: flex-end;
     }
   }
 }
