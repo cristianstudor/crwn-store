@@ -1,12 +1,22 @@
 .category-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
-  row-gap: 50px;
-}
-
-.category-title {
-  text-align: center;
-  font-size: 38px;
-  margin-bottom: 25px;
+  .category {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+  
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 10px;
+    }
+  }
+  
+  h2 {
+    margin: 0;
+  }
+  
+  .category-title {
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 25px;
+  }
 }

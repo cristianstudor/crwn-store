@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -30,19 +30,19 @@ const Category = () => {
   }, [categoriesMap, category]);
 
   return (
-    <Fragment>
+    <div className="category-container">
       <h2 className="category-title">{category.toUpperCase()}</h2>
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="category-container">
+        <div className="category">
           {products &&
             products.map((product) => {
               return <ProductCard key={product.id} product={product} />;
             })}
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 

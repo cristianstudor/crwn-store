@@ -5,7 +5,7 @@
 
   .order-details-head,
   .order-details-item {
-    min-width: 50%;
+    width: 50%;
     display: flex;
     align-self: flex-end;
     align-items: center;
@@ -20,6 +20,20 @@
     }
     .price {
       width: 15%;
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 90%;
+
+      .name {
+        width: 45%;
+      }
+      .quantity {
+        width: 20%;
+      }
+      .price {
+        width: 20%;
+      }
     }
   }
 

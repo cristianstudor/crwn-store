@@ -10,11 +10,22 @@
   .nr {
     width: 8%
   }
-  .item {
+  .date,
+  .total,
+  .completed {
     width: 28%;
   }
   .details {
     width: 8%;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 800px) {
+    .completed {
+      width: 24%;
+    } 
+    .details {
+      width: 12%;
+    }
   }
 }

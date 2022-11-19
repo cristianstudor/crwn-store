@@ -4,6 +4,10 @@
   align-items: left;
   justify-content: center;
   margin: 0 20% 25px 20%;
+
+  @media screen and (max-width: 800px) {
+    margin: 0 5% 25px 5%;
+  }
    
   .form-container {
     max-width: 400px;

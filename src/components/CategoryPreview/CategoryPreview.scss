@@ -3,7 +3,16 @@
   flex-direction: column;
   margin-bottom: 30px;
 
+  @media screen and (max-width: 800px) {
+    align-items: center;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
   .title {
+    display: block;
     font-size: 28px;
     margin-bottom: 25px;
     cursor: pointer;
@@ -13,5 +22,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
+
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 10px;
+    }
   }
 }

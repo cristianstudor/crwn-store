@@ -6,6 +6,10 @@
   align-items: center;
   margin: 0px auto;
 
+  @media screen and (max-width: 800px) {
+    width: 90%
+  }
+
   h2 {
     align-self:flex-start;
   }
@@ -24,6 +28,16 @@
       &:first-child,
       &:last-child {
         width: 8%;
+      }
+
+      @media screen and (max-width: 800px) {     
+        &:nth-child(4) {
+          width: 24%;
+        }
+
+        &:last-child {
+          width: 12%;
+        }
       }
     }
   }

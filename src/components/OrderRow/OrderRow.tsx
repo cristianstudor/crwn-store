@@ -19,9 +19,9 @@ const OrderRow = ({ order, nr }: OrderRowProps) => {
     <Fragment>
       <div className="order-row-container">
         <span className="nr">{nr}</span>
-        <span className="item">{date.toDate().toUTCString()}</span>
-        <span className="item">{`$${total}`}</span>
-        <span className="item">{completed ? "yes" : "no"}</span>
+        <span className="date">{date.toDate().toUTCString()}</span>
+        <span className="total">{`$${total}`}</span>
+        <span className="completed">{completed ? "yes" : "no"}</span>
         <span className="details" onClick={openDetails}>
           {isOpen ? "Close" : "Open"}
         </span>
