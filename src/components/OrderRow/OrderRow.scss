@@ -1,6 +1,7 @@
 .order-row-container {
   width: 100%;
   display: flex;
+  justify-content: space-between;
   min-height: 80px;
   padding: 15px 0;
   border-bottom: 1px solid darkgrey;
@@ -21,17 +22,20 @@
   }
 
   @media screen and (max-width: 800px) {
+    .nr {
+      min-width: 24px;
+    }
     .date{
-      width: 40%;
+      min-width: 42%;
     }
     .total{
-      width: 16%;
+      min-width: 18%;
     }
     .completed {
-      width: 24%;
+      min-width: 17%;
     } 
     .details {
-      width: 12%;
+      min-width: 38px;
     }
   }
 }

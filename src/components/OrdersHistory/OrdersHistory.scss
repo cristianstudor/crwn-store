@@ -30,18 +30,21 @@
         width: 8%;
       }
 
-      @media screen and (max-width: 800px) {     
+      @media screen and (max-width: 800px) {
+        &:first-child {
+          min-width: 24px;
+        }     
         &:nth-child(2) {
-          width: 40%;
+          min-width: 42%;
         }
         &:nth-child(3) {
-          width: 16%;
+          min-width: 12%;
         }
         &:nth-child(4) {
-          width: 24%;
+          min-width: 23%;
         }
         &:last-child {
-          width: 12%;
+          min-width: 38px;
         }
       }
     }
