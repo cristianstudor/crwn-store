@@ -25,16 +25,18 @@
     @media screen and (max-width: 800px) {
       width: 90%;
       .id {
-        min-width: 12%;
+        width: 14%;
       }
       .name {
-        min-width: 42%;
+        width: 40%;
       }
       .quantity {
-        min-width: 20%;
+        text-align: center;
+        width: 22%;
       }
       .price {
-        width: 70px;
+        text-align: center;
+        width: 24%;
       }
     }
   }
