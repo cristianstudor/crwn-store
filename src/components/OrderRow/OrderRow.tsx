@@ -19,7 +19,9 @@ const OrderRow = ({ order, nr }: OrderRowProps) => {
     <Fragment>
       <div className="order-row-container">
         <span className="nr">{nr}</span>
-        <span className="date">{date.toDate().toUTCString()}</span>
+        <span className="date">
+          {date.toDate().toLocaleString("ro-RO", { timeZone: "UTC" })}
+        </span>
         <span className="total">{`$${total}`}</span>
         <span className="completed">{completed ? "yes" : "no"}</span>
         <span className="details" onClick={openDetails}>
