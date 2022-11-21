@@ -1,15 +1,16 @@
 .cart-icon-container {
-  width: 45px;
   height: 45px;
+  width: 39px;
+  padding-left: 15px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
+
   @media screen and (max-width: 800px) {
-    padding-left: 10px;
     width: 34px;
+    padding-left: 10px;
   }
 
   .shopping-icon {
