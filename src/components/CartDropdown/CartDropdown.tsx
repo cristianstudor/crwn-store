@@ -11,6 +11,7 @@ import Button from "../Button/Button";
 import CartItem from "../CartItem/CartItem";
 
 import "./CartDropdown.scss";
+import { useCallback } from "react";
 
 const CartDropdown = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
@@ -18,8 +19,8 @@ const CartDropdown = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const goToCheckoutHandler = () => navigate("/checkout");
+  // eslint-disable-next-line
+  const goToCheckoutHandler = useCallback(() => navigate("/checkout"), []);
   const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
   const onClickHandler = () => {
     goToCheckoutHandler();
